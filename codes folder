@@ -1,0 +1,287 @@
+Crop:
+
+/*package com.agriculture.model;
+public class Crop {
+    private String cropName;
+    private String bestSoilType;
+    private String season;
+    public Crop(String cropName, String bestSoilType, String season) {
+        this.cropName = cropName;
+        this.bestSoilType = bestSoilType;
+        this.season = season;
+    }
+
+    public String getCropName() { return cropName; }
+    public void setCropName(String cropName) { this.cropName = cropName; }
+    public String getBestSoilType() { return bestSoilType; }
+    public void setBestSoilType(String bestSoilType) { this.bestSoilType = bestSoilType; }
+    public String getSeason() { return season; }
+    public void setSeason(String season) { this.season = season; }
+
+    @Override
+    public String toString() {
+        return "Crop Name: " + cropName + ", Best Soil Type: " + bestSoilType + ", Season: " + season;
+    }
+} */
+
+Soil:
+
+/*package com.agriculture.model;
+
+public class Soil {
+    private String soilType;
+    private String nutrients;
+
+    public Soil(String soilType, String nutrients) {
+        this.soilType = soilType;
+        this.nutrients = nutrients;
+    }
+
+    public String getSoilType() { return soilType; }
+    public void setSoilType(String soilType) { this.soilType = soilType; }
+    public String getNutrients() { return nutrients; }
+    public void setNutrients(String nutrients) { this.nutrients = nutrients; }
+
+    @Override
+    public String toString() {
+        return "Soil Type: " + soilType + ", Nutrients: " + nutrients;
+    }
+} */
+
+Disease:
+
+/*
+// com/agriculture/model/Disease.java
+package com.agriculture.model;
+
+public class Disease {
+    private String cropName;
+    private String diseaseName;
+    private String symptoms;
+    private String treatment;
+
+    public Disease(String cropName, String diseaseName, String symptoms, String treatment) {
+        this.cropName = cropName;
+        this.diseaseName = diseaseName;
+        this.symptoms = symptoms;
+        this.treatment = treatment;
+    }
+
+    public String getCropName() { return cropName; }
+    public void setCropName(String cropName) { this.cropName = cropName; }
+    public String getDiseaseName() { return diseaseName; }
+    public void setDiseaseName(String diseaseName) { this.diseaseName = diseaseName; }
+    public String getSymptoms() { return symptoms; }
+    public void setSymptoms(String symptoms) { this.symptoms = symptoms; }
+    public String getTreatment() { return treatment; }
+    public void setTreatment(String treatment) { this.treatment = treatment; }
+
+    @Override
+    public String toString() {
+        return "Crop Name: " + cropName + ", Disease: " + diseaseName + ", Symptoms: " + symptoms + ", Treatment: " + treatment;
+    }
+
+	public String getCropName1() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+}*/
+
+CropService:
+
+/*package com.agriculture.service;
+
+import com.agriculture.model.Crop;
+import java.util.HashMap;
+import java.util.Map;
+
+public class CropService {
+    private Map<String, Crop> cropDatabase = new HashMap<>();
+
+    public void addCrop(Crop crop) {
+        cropDatabase.put(crop.getCropName(), crop);
+    }
+
+    public Crop getCrop(String cropName) {
+        return cropDatabase.get(cropName);
+    }
+}*/
+
+SoilService:
+
+/*// com/agriculture/service/SoilService.java
+package com.agriculture.service;
+
+import com.agriculture.model.Soil;
+import java.util.HashMap;
+import java.util.Map;
+
+public class SoilService {
+    private Map<String, Soil> soilDatabase = new HashMap<>();
+
+    public void addSoil(Soil soil) {
+        soilDatabase.put(soil.getSoilType(), soil);
+    }
+
+    public Soil getSoil(String soilType) {
+        return soilDatabase.get(soilType);
+    }
+}*/
+
+DiseaseService:
+
+/*// com/agriculture/service/DiseaseService.java
+package com.agriculture.service;
+
+import com.agriculture.model.Disease;
+import java.util.HashMap;
+import java.util.Map;
+
+public class DiseaseService {
+    private Map<String, Disease> diseaseDatabase = new HashMap<>();
+
+    public void addDisease(Disease disease) {
+        diseaseDatabase.put(disease.getCropName() + ":" + disease.getDiseaseName(), disease);
+    }
+
+    public Disease getDisease(String cropName, String diseaseName) {
+        return diseaseDatabase.get(cropName + ":" + diseaseName);
+    }
+}*/
+
+
+Main program code:
+
+/*// com/agriculture/ui/Main.java
+package com.agriculture.ui;
+
+import com.agriculture.model.Crop;
+import com.agriculture.model.Soil;
+import com.agriculture.model.Disease;
+import com.agriculture.service.CropService;
+import com.agriculture.service.SoilService;
+import com.agriculture.service.DiseaseService;
+
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        CropService cropService = new CropService();
+        SoilService soilService = new SoilService();
+        DiseaseService diseaseService = new DiseaseService();
+        Scanner scanner = new Scanner(System.in);
+
+        while (true) {
+            System.out.println("1. Add Crop");
+            System.out.println("2. Add Soil");
+            System.out.println("3. Add Disease");
+            System.out.println("4. Get Crop Info");
+            System.out.println("5. Get Soil Info");
+            System.out.println("6. Get Disease Info");
+            System.out.println("7. Exit");
+            System.out.print("Enter your choice: ");
+            int choice = scanner.nextInt();
+            scanner.nextLine(); // Consume newline
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter Crop Name: ");
+                    String cropName = scanner.nextLine();
+                    System.out.print("Enter Best Soil Type: ");
+                    String bestSoilType = scanner.nextLine();
+                    System.out.print("Enter Season: ");
+                    String season = scanner.nextLine();
+                    Crop crop = new Crop(cropName, bestSoilType, season);
+                    cropService.addCrop(crop);
+                    System.out.println("Crop added successfully!");
+                    break;
+                case 2:
+                    System.out.print("Enter Soil Type: ");
+                    String soilType = scanner.nextLine();
+                    System.out.print("Enter Nutrients: ");
+                    String nutrients = scanner.nextLine();
+                    Soil soil = new Soil(soilType, nutrients);
+                    soilService.addSoil(soil);
+                    System.out.println("Soil added successfully!");
+                    break;
+                case 3:
+                    System.out.print("Enter Crop Name: ");
+                    String dCropName = scanner.nextLine();
+                    System.out.print("Enter Disease Name: ");
+                    String diseaseName = scanner.nextLine();
+                    System.out.print("Enter Symptoms: ");
+                    String symptoms = scanner.nextLine();
+                    System.out.print("Enter Treatment: ");
+                    String treatment = scanner.nextLine();
+                    Disease disease = new Disease(dCropName, diseaseName, symptoms, treatment);
+                    diseaseService.addDisease(disease);
+                    System.out.println("Disease added successfully!");
+                    break;
+                case 4:
+                    System.out.print("Enter Crop Name: ");
+                    String cropNameToGet = scanner.nextLine();
+                    Crop fetchedCrop = cropService.getCrop(cropNameToGet);
+                    if (fetchedCrop != null) {
+                        System.out.println("Crop Info: " + fetchedCrop);
+                    } else {
+                        System.out.println("Crop not found.");
+                    }
+                    break;
+                case 5:
+                    System.out.print("Enter Soil Type: ");
+                    String soilTypeToGet = scanner.nextLine();
+                    Soil fetchedSoil = soilService.getSoil(soilTypeToGet);
+                    if (fetchedSoil != null) {
+                        System.out.println("Soil Info: " + fetchedSoil);
+                    } else {
+                        System.out.println("Soil not found.");
+                    }
+                    break;
+                case 6:
+                    System.out.print("Enter Crop Name: ");
+                    String diseaseCropName = scanner.nextLine();
+                    System.out.print("Enter Disease Name: ");
+                    String diseaseNameToGet = scanner.nextLine();
+                    Disease fetchedDisease = diseaseService.getDisease(diseaseCropName, diseaseNameToGet);
+                    if (fetchedDisease != null) {
+                        System.out.println("Disease Info: " + fetchedDisease);
+                    } else {
+                        System.out.println("Disease not found.");
+                    }
+                    break;
+                case 7:
+                    System.out.println("Exiting...");
+                    System.exit(0);
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please enter a valid option.");
+            }
+        }
+    }
+}*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
